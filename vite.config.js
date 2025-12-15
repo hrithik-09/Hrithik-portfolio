@@ -9,5 +9,5 @@ export default defineConfig({
   // If your repo is "hrithik-portfolio", keep it as "/hrithik-portfolio/"
   // If your repo is "portfolio" or something else, change accordingly
   // For root domain deployment, use "/"
-  base: process.env.NODE_ENV === 'production' ? '/hrithik-portfolio/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/Hrithik-portfolio/' : '/',
 })
