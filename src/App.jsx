@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from './data';
-import { Github, Linkedin, Mail, ExternalLink, Award, Trophy, Badge } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, Award, Trophy, Badge, FileText, Menu, X } from "lucide-react";
 
 
 
-const Section = ({ title, children, className = "" }) => {
+const Section = ({ id, title, children, className = "" }) => {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -31,20 +31,21 @@ const Section = ({ title, children, className = "" }) => {
 
   return (
     <section 
+      id={id}
       ref={sectionRef}
-      className={`py-16 px-6 max-w-4xl mx-auto ${className} transition-all duration-1000 ${
+      className={`py-16 px-6 max-w-4xl mx-auto ${className} transition-all duration-1000 scroll-mt-20 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
     >
       <h2 className="text-3xl font-bold text-slate-100 mb-8 flex items-center gap-3 group">
         <span className="w-2 h-8 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full animate-pulse group-hover:animate-none group-hover:scale-110 transition-transform"></span>
         <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-          {title}
+      {title}
         </span>
-      </h2>
-      {children}
-    </section>
-  );
+    </h2>
+    {children}
+  </section>
+);
 };
 
 const Card = ({ title, subtitle, date, children, index = 0 }) => {
@@ -79,8 +80,8 @@ const Card = ({ title, subtitle, date, children, index = 0 }) => {
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
-      <div className="flex justify-between items-start flex-wrap gap-2 mb-4">
-        <div>
+    <div className="flex justify-between items-start flex-wrap gap-2 mb-4">
+      <div>
           <h3 className="text-xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors duration-300">{title}</h3>
           <p className="text-blue-400 font-medium group-hover:text-cyan-400 transition-colors duration-300">{subtitle}</p>
         </div>
@@ -91,10 +92,10 @@ const Card = ({ title, subtitle, date, children, index = 0 }) => {
         )}
       </div>
       <div className="text-slate-300 space-y-2 text-sm leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
-        {children}
-      </div>
+      {children}
     </div>
-  );
+  </div>
+);
 };
 
 const ProjectCard = ({ project, index }) => {
@@ -407,6 +408,147 @@ const TimelineItem = ({ edu, index }) => {
 
 // --- Main App ---
 
+const Navigation = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+
+  const navItems = [
+    { id: 'experience', label: 'Experience' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'awards', label: 'Awards' },
+    { id: 'certifications', label: 'Certifications' },
+    { id: 'education', label: 'Education' },
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      
+      // Update active section based on scroll position
+      const sections = navItems.map(item => document.getElementById(item.id)).filter(Boolean);
+      const scrollPosition = window.scrollY + 150;
+      
+      for (let i = sections.length - 1; i >= 0; i--) {
+        if (sections[i].offsetTop <= scrollPosition) {
+          setActiveSection(navItems[i].id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on mount
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+      setMobileMenuOpen(false);
+    }
+  };
+
+  const downloadResume = () => {
+    const link = document.createElement('a');
+    link.href = '/Hrithik_Ranjan_Main.pdf';
+    link.download = 'Hrithik_Ranjan_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  return (
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-slate-900/95 backdrop-blur-md border-b border-slate-800 shadow-lg' 
+        : 'bg-transparent'
+    }`}>
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          {/* Logo/Name */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+          >
+            HR
+          </button>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-6">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`text-sm font-medium transition-all duration-300 relative ${
+                  activeSection === item.id
+                    ? 'text-cyan-400'
+                    : 'text-slate-300 hover:text-blue-400'
+                }`}
+              >
+                {item.label}
+                {activeSection === item.id && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400"></span>
+                )}
+              </button>
+            ))}
+            <button
+              onClick={downloadResume}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105"
+            >
+              <FileText size={16} />
+              <span>Resume</span>
+            </button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden text-slate-300 hover:text-blue-400 transition-colors"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 space-y-2 border-t border-slate-800 pt-4">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`block w-full text-left px-4 py-2 rounded-lg transition-all duration-300 ${
+                  activeSection === item.id
+                    ? 'bg-blue-500/20 text-cyan-400'
+                    : 'text-slate-300 hover:bg-slate-800 hover:text-blue-400'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+            <button
+              onClick={downloadResume}
+              className="flex items-center gap-2 w-full px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 mt-2"
+            >
+              <FileText size={16} />
+              <span>Download Resume</span>
+            </button>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
 export default function App() {
   const { personal, experience, skills, projects, education, awards = [], certifications = [] } = portfolioData;
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -493,6 +635,9 @@ export default function App() {
         }}
       />
       
+      {/* Navigation */}
+      <Navigation />
+      
       {/* Content wrapper with backdrop blur effect */}
       <div className="relative z-10 min-h-screen">
       
@@ -550,7 +695,7 @@ export default function App() {
       </header>
 
       {/* Experience Section */}
-      <Section title="Where I've Worked">
+      <Section id="experience" title="Where I've Worked">
         {experience.map((exp, index) => (
           <Card 
             key={index} 
@@ -574,7 +719,7 @@ export default function App() {
       </Section>
 
       {/* Skills Section */}
-      <Section title="Technical Skills">
+      <Section id="skills" title="Technical Skills">
         <div className="flex flex-wrap gap-3">
           {skills.map((skill, index) => (
             <SkillBadge key={index} skill={skill} index={index} />
@@ -583,7 +728,7 @@ export default function App() {
       </Section>
 
       {/* Projects Section */}
-      <Section title="Featured Projects">
+      <Section id="projects" title="Featured Projects">
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
@@ -593,7 +738,7 @@ export default function App() {
 
       {/* Awards & Achievements Section */}
       {awards && awards.length > 0 && (
-        <Section title="Awards & Achievements">
+        <Section id="awards" title="Awards & Achievements">
           <div className="space-y-6">
             {awards.map((award, index) => (
               <AwardCard key={index} award={award} index={index} />
@@ -604,7 +749,7 @@ export default function App() {
 
       {/* Certifications Section */}
       {certifications && certifications.length > 0 && (
-        <Section title="Certifications">
+        <Section id="certifications" title="Certifications">
           <div className="space-y-4">
             {certifications.map((cert, index) => (
               <CertCard key={index} cert={cert} index={index} />
@@ -614,7 +759,7 @@ export default function App() {
       )}
 
       {/* Education Timeline Section */}
-      <Section title="Education">
+      <Section id="education" title="Education">
         <div className="relative">
           {/* Vertical Timeline Line */}
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-cyan-500 to-purple-500 opacity-30"></div>
