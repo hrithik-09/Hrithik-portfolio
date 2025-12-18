@@ -37,9 +37,9 @@ const Section = ({ id, title, children, className = "" }) => {
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
     >
-      <h2 className="text-3xl font-bold text-slate-100 mb-8 flex items-center gap-3 group">
-        <span className="w-2 h-8 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full animate-pulse group-hover:animate-none group-hover:scale-110 transition-transform"></span>
-        <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+      <h2 className="text-3xl font-bold mb-8 flex items-center gap-3 group" style={{ color: '#1F2933' }}>
+        <span className="w-2 h-8 rounded-full animate-pulse group-hover:animate-none group-hover:scale-110 transition-transform" style={{ backgroundColor: '#0D9488' }}></span>
+        <span style={{ color: '#0D9488' }}>
       {title}
         </span>
     </h2>
@@ -76,22 +76,32 @@ const Card = ({ title, subtitle, date, children, index = 0 }) => {
   return (
     <div 
       ref={cardRef}
-      className={`bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-all duration-500 shadow-lg mb-6 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-2 group ${
+      className={`p-6 rounded-xl border transition-all duration-500 shadow-sm mb-6 hover:shadow-md hover:-translate-y-2 group ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
+      style={{ 
+        backgroundColor: '#FFFFFF',
+        borderColor: '#E5E7EB'
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = '#0D9488'}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
     >
     <div className="flex justify-between items-start flex-wrap gap-2 mb-4">
       <div>
-          <h3 className="text-xl font-bold text-slate-100 group-hover:text-blue-400 transition-colors duration-300">{title}</h3>
-          <p className="text-blue-400 font-medium group-hover:text-cyan-400 transition-colors duration-300">{subtitle}</p>
+          <h3 className="text-xl font-bold transition-colors duration-300" style={{ color: '#1F2933' }}>{title}</h3>
+          <p className="font-medium transition-colors duration-300" style={{ color: '#0D9488' }}>{subtitle}</p>
         </div>
         {date && (
-          <span className="text-sm text-slate-400 bg-gradient-to-r from-slate-900 to-slate-800 px-3 py-1 rounded-full border border-slate-700 group-hover:border-blue-500/50 transition-all duration-300">
+          <span className="text-sm px-3 py-1 rounded-full border transition-all duration-300" style={{ 
+            color: '#667085',
+            backgroundColor: '#FAFAF8',
+            borderColor: '#E5E7EB'
+          }}>
             {date}
           </span>
         )}
       </div>
-      <div className="text-slate-300 space-y-2 text-sm leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
+      <div className="space-y-2 text-sm leading-relaxed transition-colors duration-300" style={{ color: '#1F2933' }}>
       {children}
     </div>
   </div>
@@ -126,24 +136,37 @@ const ProjectCard = ({ project, index }) => {
   const ProjectContent = (
     <>
       <div className="flex items-start justify-between mb-3">
-        <h3 className="text-xl font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">
+        <h3 className="text-xl font-bold transition-colors duration-300" style={{ color: '#1F2933' }}>
           {project.title}
         </h3>
         {project.link && (
-          <ExternalLink size={18} className="text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+          <ExternalLink size={18} className="transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" style={{ color: '#667085' }} />
         )}
       </div>
-      <p className="text-sm text-blue-400 mb-4 group-hover:text-cyan-400 transition-colors duration-300">
+      <p className="text-sm mb-4 transition-colors duration-300" style={{ color: '#0D9488' }}>
         {project.subtitle}
       </p>
-      <p className="text-slate-400 text-sm mb-6 h-20 overflow-hidden group-hover:text-slate-300 transition-colors duration-300">
+      <p className="text-sm mb-6 h-20 overflow-hidden transition-colors duration-300" style={{ color: '#667085' }}>
         {project.description}
       </p>
       <div className="flex flex-wrap gap-2">
         {project.tags.map((tag, i) => (
           <span 
             key={i} 
-            className="text-xs font-mono text-blue-300 bg-blue-900/30 px-2 py-1 rounded border border-blue-800/30 group-hover:bg-cyan-900/30 group-hover:text-cyan-300 group-hover:border-cyan-700/30 transition-all duration-300 hover:scale-110 cursor-default"
+            className="text-xs font-mono px-2 py-1 rounded border transition-all duration-300 hover:scale-110 cursor-default"
+            style={{ 
+              color: '#667085',
+              backgroundColor: '#FAFAF8',
+              borderColor: '#E5E7EB'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#0D9488';
+              e.currentTarget.style.color = '#0D9488';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = '#E5E7EB';
+              e.currentTarget.style.color = '#667085';
+            }}
           >
             {tag}
           </span>
@@ -152,24 +175,35 @@ const ProjectCard = ({ project, index }) => {
     </>
   );
 
+  const cardStyle = { 
+    backgroundColor: '#FFFFFF',
+    borderColor: '#E5E7EB'
+  };
+
   return project.link ? (
     <a
       href={project.link}
       target="_blank"
       rel="noreferrer"
       ref={projectRef}
-      className={`group block bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-cyan-500/20 cursor-pointer ${
+      className={`group block backdrop-blur-sm p-6 rounded-xl border transition-all duration-500 hover:-translate-y-3 hover:shadow-md cursor-pointer ${
         isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
       }`}
+      style={cardStyle}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = '#0D9488'}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
     >
       {ProjectContent}
     </a>
   ) : (
     <div 
       ref={projectRef}
-      className={`group bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-cyan-500/20 ${
+      className={`group backdrop-blur-sm p-6 rounded-xl border transition-all duration-500 hover:-translate-y-3 hover:shadow-md ${
         isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
       }`}
+      style={cardStyle}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = '#0D9488'}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
     >
       {ProjectContent}
     </div>
@@ -204,31 +238,41 @@ const AwardCard = ({ award, index }) => {
   return (
     <div
       ref={awardRef}
-      className={`group bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:border-yellow-500/50 transition-all duration-500 hover:shadow-xl hover:shadow-yellow-500/10 hover:-translate-y-1 ${
+      className={`group backdrop-blur-sm p-6 rounded-xl border transition-all duration-500 hover:shadow-md hover:-translate-y-1 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
+      style={{ 
+        backgroundColor: '#FFFFFF',
+        borderColor: '#E5E7EB'
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = '#0D9488'}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
     >
       <div className="flex items-start gap-4">
         <div className="flex-shrink-0 mt-1">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <Trophy size={24} className="text-slate-900" />
+          <div className="w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#0D9488' }}>
+            <Trophy size={24} style={{ color: '#FFFFFF' }} />
           </div>
         </div>
         <div className="flex-1">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-2">
             <div>
-              <h3 className="text-lg font-bold text-slate-100 group-hover:text-yellow-400 transition-colors duration-300">
+              <h3 className="text-lg font-bold transition-colors duration-300" style={{ color: '#1F2933' }}>
                 {award.title}
               </h3>
-              <p className="text-blue-400 group-hover:text-yellow-400 transition-colors duration-300 text-sm mt-1">
+              <p className="transition-colors duration-300 text-sm mt-1" style={{ color: '#0D9488' }}>
                 {award.organization}
               </p>
             </div>
-            <span className="text-xs text-slate-400 bg-slate-800 px-3 py-1 rounded-full border border-slate-700 group-hover:border-yellow-500/50 group-hover:text-yellow-400 transition-all duration-300 whitespace-nowrap">
+            <span className="text-xs px-3 py-1 rounded-full border transition-all duration-300 whitespace-nowrap" style={{ 
+              color: '#667085',
+              backgroundColor: '#FAFAF8',
+              borderColor: '#E5E7EB'
+            }}>
               {award.date}
             </span>
           </div>
-          <p className="text-slate-300 text-sm group-hover:text-slate-200 transition-colors duration-300">
+          <p className="text-sm transition-colors duration-300" style={{ color: '#1F2933' }}>
             {award.description}
           </p>
         </div>
@@ -266,24 +310,29 @@ const CertCard = ({ cert, index }) => {
     <>
       <div className="flex items-center gap-4">
         <div className="flex-shrink-0">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <Badge size={20} className="text-slate-900" />
+          <div className="w-10 h-10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: '#0D9488' }}>
+            <Badge size={20} style={{ color: '#FFFFFF' }} />
           </div>
         </div>
         <div>
-          <h3 className="text-base font-bold text-slate-100 group-hover:text-green-400 transition-colors duration-300">
+          <h3 className="text-base font-bold transition-colors duration-300" style={{ color: '#1F2933' }}>
             {cert.title}
           </h3>
-          <p className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+          <p className="text-sm transition-colors duration-300" style={{ color: '#667085' }}>
             {cert.issuer} • {cert.date}
           </p>
         </div>
       </div>
       {cert.link && (
-        <ExternalLink size={18} className="text-slate-600 group-hover:text-green-400 group-hover:translate-x-1 transition-all duration-300" />
+        <ExternalLink size={18} className="transition-all duration-300 group-hover:translate-x-1" style={{ color: '#667085' }} />
       )}
     </>
   );
+
+  const cardStyle = { 
+    backgroundColor: '#FFFFFF',
+    borderColor: '#E5E7EB'
+  };
 
   return cert.link ? (
     <a
@@ -291,18 +340,24 @@ const CertCard = ({ cert, index }) => {
       target="_blank"
       rel="noreferrer"
       ref={certRef}
-      className={`group flex items-center justify-between bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-5 rounded-xl border border-slate-700 hover:border-green-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10 hover:-translate-y-1 cursor-pointer ${
+      className={`group flex items-center justify-between backdrop-blur-sm p-5 rounded-xl border transition-all duration-300 hover:shadow-md hover:-translate-y-1 cursor-pointer ${
         isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
       }`}
+      style={cardStyle}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = '#0D9488'}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
     >
       {CertContent}
     </a>
   ) : (
     <div
       ref={certRef}
-      className={`group flex items-center justify-between bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-5 rounded-xl border border-slate-700 hover:border-green-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10 hover:-translate-y-1 ${
+      className={`group flex items-center justify-between backdrop-blur-sm p-5 rounded-xl border transition-all duration-300 hover:shadow-md hover:-translate-y-1 ${
         isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
       }`}
+      style={cardStyle}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = '#0D9488'}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
     >
       {CertContent}
     </div>
@@ -337,9 +392,22 @@ const SkillBadge = ({ skill, index }) => {
   return (
     <span 
       ref={skillRef}
-      className={`px-4 py-2 bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-lg text-slate-300 hover:border-cyan-500 hover:text-cyan-400 hover:bg-gradient-to-r hover:from-cyan-900/20 hover:to-blue-900/20 transition-all duration-300 cursor-default hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/20 ${
+      className={`px-4 py-2 border rounded-lg transition-all duration-300 cursor-default hover:scale-110 hover:shadow-sm ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
+      style={{ 
+        color: '#1F2933',
+        backgroundColor: '#FFFFFF',
+        borderColor: '#E5E7EB'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = '#0D9488';
+        e.currentTarget.style.color = '#0D9488';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = '#E5E7EB';
+        e.currentTarget.style.color = '#1F2933';
+      }}
     >
       {skill}
     </span>
@@ -379,26 +447,39 @@ const TimelineItem = ({ edu, index }) => {
       } transition-all duration-700`}
     >
       {/* Timeline Node */}
-      <div className="absolute left-6 top-2 w-4 h-4 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 border-4 border-slate-900 group-hover:scale-150 group-hover:shadow-lg group-hover:shadow-blue-500/50 transition-all duration-300 z-10">
-        <div className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-75"></div>
+      <div className="absolute left-6 top-2 w-4 h-4 rounded-full border-4 transition-all duration-300 z-10 group-hover:scale-150" style={{ 
+        backgroundColor: '#0D9488',
+        borderColor: '#FFFFFF'
+      }}>
+        <div className="absolute inset-0 rounded-full animate-ping opacity-75" style={{ backgroundColor: '#0D9488' }}></div>
       </div>
       
       {/* Content Card */}
-      <div className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-6 rounded-xl border border-slate-700 group-hover:border-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1">
+      <div className="backdrop-blur-sm p-6 rounded-xl border transition-all duration-300 hover:shadow-md hover:-translate-y-1" style={{ 
+        backgroundColor: '#FFFFFF',
+        borderColor: '#E5E7EB'
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.borderColor = '#0D9488'}
+      onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
+      >
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-2">
           <div>
-            <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">
+            <h3 className="text-lg font-bold transition-colors duration-300" style={{ color: '#1F2933' }}>
               {edu.degree}
             </h3>
-            <p className="text-blue-400 group-hover:text-cyan-400 transition-colors duration-300 text-sm mt-1">
+            <p className="transition-colors duration-300 text-sm mt-1" style={{ color: '#0D9488' }}>
               {edu.institute}
             </p>
           </div>
-          <span className="text-xs text-slate-400 bg-slate-800 px-3 py-1 rounded-full border border-slate-700 group-hover:border-cyan-500/50 group-hover:text-cyan-400 transition-all duration-300 whitespace-nowrap">
+          <span className="text-xs px-3 py-1 rounded-full border transition-all duration-300 whitespace-nowrap" style={{ 
+            color: '#667085',
+            backgroundColor: '#FAFAF8',
+            borderColor: '#E5E7EB'
+          }}>
             {edu.year}
           </span>
         </div>
-        <p className="text-slate-300 text-sm mt-2 group-hover:text-blue-400 transition-colors duration-300">
+        <p className="text-sm mt-2 transition-colors duration-300" style={{ color: '#1F2933' }}>
           {edu.gpa}
         </p>
       </div>
@@ -470,15 +551,21 @@ const Navigation = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-slate-900/95 backdrop-blur-md border-b border-slate-800 shadow-lg' 
+        ? 'backdrop-blur-md border-b shadow-sm' 
         : 'bg-transparent'
-    }`}>
+    }`}
+    style={isScrolled ? { 
+      backgroundColor: '#1F2933',
+      borderColor: 'rgba(255, 255, 255, 0.1)'
+    } : {}}
+    >
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo/Name */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+            className="text-xl font-bold hover:scale-105 transition-transform duration-300"
+            style={{ color: isScrolled ? '#FFFFFF' : '#1F2933' }}
           >
             HR
           </button>
@@ -489,21 +576,33 @@ const Navigation = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`text-sm font-medium transition-all duration-300 relative ${
-                  activeSection === item.id
-                    ? 'text-cyan-400'
-                    : 'text-slate-300 hover:text-blue-400'
-                }`}
+                className="text-sm font-medium transition-all duration-300 relative"
+                style={{ 
+                  color: activeSection === item.id 
+                    ? '#0D9488' 
+                    : (isScrolled ? '#FFFFFF' : '#1F2933')
+                }}
+                onMouseEnter={(e) => {
+                  if (activeSection !== item.id) e.currentTarget.style.color = '#0D9488';
+                }}
+                onMouseLeave={(e) => {
+                  if (activeSection !== item.id) {
+                    e.currentTarget.style.color = isScrolled ? '#FFFFFF' : '#1F2933';
+                  }
+                }}
               >
                 {item.label}
                 {activeSection === item.id && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400"></span>
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5" style={{ backgroundColor: '#0D9488' }}></span>
                 )}
               </button>
             ))}
             <button
               onClick={downloadResume}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105"
+              className="flex items-center gap-2 px-4 py-2 text-white rounded-lg transition-all duration-300 shadow-sm hover:shadow-md hover:scale-105"
+              style={{ backgroundColor: '#0D9488' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0F766E'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0D9488'}
             >
               <FileText size={16} />
               <span>Resume</span>
@@ -513,7 +612,12 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-slate-300 hover:text-blue-400 transition-colors"
+            className="md:hidden transition-colors"
+            style={{ color: isScrolled ? '#FFFFFF' : '#1F2933' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#0D9488'}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = isScrolled ? '#FFFFFF' : '#1F2933';
+            }}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -521,23 +625,38 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-2 border-t border-slate-800 pt-4">
+          <div className="md:hidden mt-4 pb-4 space-y-2 border-t pt-4" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left px-4 py-2 rounded-lg transition-all duration-300 ${
-                  activeSection === item.id
-                    ? 'bg-blue-500/20 text-cyan-400'
-                    : 'text-slate-300 hover:bg-slate-800 hover:text-blue-400'
-                }`}
+                className="block w-full text-left px-4 py-2 rounded-lg transition-all duration-300"
+                style={{ 
+                  color: activeSection === item.id ? '#0D9488' : '#FFFFFF',
+                  backgroundColor: activeSection === item.id ? 'rgba(13, 148, 136, 0.1)' : 'transparent'
+                }}
+                onMouseEnter={(e) => {
+                  if (activeSection !== item.id) {
+                    e.currentTarget.style.color = '#0D9488';
+                    e.currentTarget.style.backgroundColor = 'rgba(13, 148, 136, 0.05)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (activeSection !== item.id) {
+                    e.currentTarget.style.color = '#FFFFFF';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }
+                }}
               >
                 {item.label}
               </button>
             ))}
             <button
               onClick={downloadResume}
-              className="flex items-center gap-2 w-full px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 mt-2"
+              className="flex items-center gap-2 w-full px-4 py-2 text-white rounded-lg transition-all duration-300 mt-2"
+              style={{ backgroundColor: '#0D9488' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0F766E'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0D9488'}
             >
               <FileText size={16} />
               <span>Download Resume</span>
@@ -562,105 +681,36 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen text-slate-300 font-sans selection:bg-blue-500 selection:text-white relative overflow-hidden">
-      {/* Base gradient background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900"></div>
-      
-      {/* Animated mesh gradient overlay */}
-      <div className="fixed inset-0 opacity-40">
-        <div 
-          className="absolute inset-0 animate-gradient-mesh"
-          style={{
-            background: `
-              radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.3) 0px, transparent 50%),
-              radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.2) 0px, transparent 50%),
-              radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.2) 0px, transparent 50%),
-              radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.25) 0px, transparent 50%)
-            `
-          }}
-        />
-      </div>
-      
-      {/* Grid pattern overlay */}
-      <div 
-        className="fixed inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px'
-        }}
-      />
-      
-      {/* Animated gradient orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div 
-          className="absolute w-96 h-96 rounded-full blur-3xl opacity-20 animate-float-slow"
-          style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%)',
-            top: '10%',
-            left: '10%',
-            animationDelay: '0s',
-            animationDuration: '20s'
-          }}
-        />
-        <div 
-          className="absolute w-96 h-96 rounded-full blur-3xl opacity-20 animate-float-slow"
-          style={{
-            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%)',
-            top: '60%',
-            right: '10%',
-            animationDelay: '5s',
-            animationDuration: '25s'
-          }}
-        />
-        <div 
-          className="absolute w-96 h-96 rounded-full blur-3xl opacity-15 animate-float-slow"
-          style={{
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%)',
-            bottom: '20%',
-            left: '50%',
-            animationDelay: '10s',
-            animationDuration: '30s'
-          }}
-        />
-      </div>
-      
-      {/* Mouse-following spotlight */}
-      <div 
-        className="fixed inset-0 opacity-30 pointer-events-none transition-opacity duration-1000"
-        style={{
-          background: `radial-gradient(circle 600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 80%)`
-        }}
-      />
+    <div className="min-h-screen font-sans selection:bg-[#0D9488] selection:text-white relative overflow-hidden" style={{ color: '#1F2933', backgroundColor: '#FAFAF8' }}>
+      {/* Base background - Cream-white */}
+      <div className="fixed inset-0" style={{ backgroundColor: '#FAFAF8' }}></div>
       
       {/* Navigation */}
       <Navigation />
       
-      {/* Content wrapper with backdrop blur effect */}
+      {/* Content wrapper */}
       <div className="relative z-10 min-h-screen">
       
       {/* Hero Section */}
       <header className="min-h-[80vh] flex flex-col justify-center px-6 max-w-4xl mx-auto relative z-10">
         <div className="space-y-4 animate-fade-in">
-          <p className="text-blue-400 font-medium tracking-wide animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          <p className="font-medium tracking-wide animate-slide-up" style={{ animationDelay: '0.1s', color: '#0D9488' }}>
             Hi, my name is
           </p>
           <h1 className="text-6xl md:text-7xl font-bold tracking-tight animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent animate-gradient">
+            <span style={{ color: '#0D9488' }}>
               {personal.name}
             </span>
-            <span className="text-slate-100">.</span>
+            <span style={{ color: '#1F2933' }}>.</span>
           </h1>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-400 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+          <h2 className="text-4xl md:text-5xl font-bold animate-slide-up" style={{ animationDelay: '0.3s', color: '#667085' }}>
             I build{' '}
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <span style={{ color: '#1F2933' }}>
             production-grade software systems
             </span>
             .
           </h2>
-          <p className="max-w-xl text-lg text-slate-400 mt-6 leading-relaxed animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <p className="max-w-xl text-lg mt-6 leading-relaxed animate-slide-up" style={{ animationDelay: '0.4s', color: '#667085' }}>
             {personal.about}
           </p>
           
@@ -669,7 +719,20 @@ export default function App() {
               href={personal.github} 
               target="_blank" 
               rel="noreferrer" 
-              className="group flex items-center gap-2 px-6 py-3 bg-slate-800/80 backdrop-blur-sm text-white rounded-lg hover:bg-slate-700 transition-all duration-300 border border-slate-700 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20 hover:scale-105"
+              className="group flex items-center gap-2 px-6 py-3 backdrop-blur-sm text-white rounded-lg transition-all duration-300 border hover:shadow-sm hover:scale-105"
+              style={{ 
+                backgroundColor: '#FFFFFF',
+                borderColor: '#E5E7EB',
+                color: '#1F2933'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#0D9488';
+                e.currentTarget.style.color = '#0D9488';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '#E5E7EB';
+                e.currentTarget.style.color = '#1F2933';
+              }}
             >
               <Github size={20} className="group-hover:rotate-12 transition-transform duration-300" /> 
               <span>GitHub</span>
@@ -678,14 +741,29 @@ export default function App() {
               href={personal.linkedin} 
               target="_blank" 
               rel="noreferrer" 
-              className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-500 hover:to-cyan-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105"
+              className="group flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-all duration-300 shadow-sm hover:shadow-md hover:scale-105"
+              style={{ backgroundColor: '#0D9488' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0F766E'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0D9488'}
             >
               <Linkedin size={20} className="group-hover:scale-110 transition-transform duration-300" /> 
               <span>LinkedIn</span>
             </a>
             <a 
               href={`mailto:${personal.email}`} 
-              className="group flex items-center gap-2 px-6 py-3 bg-transparent text-slate-300 border border-slate-600 rounded-lg hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300 hover:bg-slate-800/50 hover:scale-105"
+              className="group flex items-center gap-2 px-6 py-3 bg-transparent border rounded-lg transition-all duration-300 hover:scale-105"
+              style={{ 
+                color: '#1F2933',
+                borderColor: '#E5E7EB'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#0D9488';
+                e.currentTarget.style.color = '#0D9488';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '#E5E7EB';
+                e.currentTarget.style.color = '#1F2933';
+              }}
             >
               <Mail size={20} className="group-hover:scale-110 transition-transform duration-300" /> 
               <span>Email</span>
@@ -708,7 +786,10 @@ export default function App() {
               {exp.achievements.map((achievement, i) => (
                 <li 
                   key={i}
-                  className="hover:text-blue-400 transition-colors duration-300 cursor-default"
+                  className="transition-colors duration-300 cursor-default"
+                  style={{ color: '#1F2933' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0D9488'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#1F2933'}
                 >
                   {achievement}
                 </li>
@@ -762,7 +843,7 @@ export default function App() {
       <Section id="education" title="Education">
         <div className="relative">
           {/* Vertical Timeline Line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-cyan-500 to-purple-500 opacity-30"></div>
+          <div className="absolute left-8 top-0 bottom-0 w-0.5" style={{ backgroundColor: '#0D9488', opacity: 0.3 }}></div>
           
           {/* Timeline Items */}
           <div className="space-y-8">
@@ -774,10 +855,14 @@ export default function App() {
       </Section>
 
       {/* Footer */}
-      <footer className="py-12 text-center text-slate-500 text-sm bg-gradient-to-t from-slate-950 to-slate-900 mt-12 border-t border-slate-800">
-        <p className="text-slate-500 hover:text-slate-400 transition-colors duration-300">
+      <footer className="py-12 text-center text-sm mt-12 border-t" style={{ 
+        color: '#667085',
+        backgroundColor: '#1F2933',
+        borderColor: 'rgba(255, 255, 255, 0.1)'
+      }}>
+        <p className="transition-colors duration-300" style={{ color: '#667085' }}>
           Designed by{' '}
-          <span className="text-blue-400 hover:text-cyan-400 transition-colors duration-300">
+          <span className="transition-colors duration-300" style={{ color: '#FFFFFF' }}>
             {personal.name}
           </span>
         </p>
