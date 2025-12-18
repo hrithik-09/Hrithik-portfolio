@@ -1,6 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from './data';
 import { Github, Linkedin, Mail, ExternalLink, Award, Trophy, Badge, FileText, Menu, X } from "lucide-react";
+
+// Artistic HR Logo Component - Elegant Interlocking Monogram
+const HRLogo = ({ className = "", size = 30 }) => {
+  return (
+    <svg 
+      className={className}
+      viewBox="0 0 100 100" 
+      width={size} 
+      height={size}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+    >
+      <defs>
+        <linearGradient id="tealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#0D9488" /> {/* Teal-600 */}
+          <stop offset="100%" stopColor="#0F766E" /> {/* Teal-700 */}
+        </linearGradient>
+      </defs>
+
+      {/* Optional: Techy container border */}
+      <rect 
+        x="5" y="5" width="90" height="90" rx="20" 
+        stroke="url(#tealGradient)" 
+        strokeWidth="3" 
+        strokeOpacity="0.3"
+        fill="none" 
+      />
+
+      {/* H Structure */}
+      <path 
+        d="M 25 30 V 70 M 25 50 H 45 M 45 30 V 70" 
+        stroke="url(#tealGradient)" 
+        strokeWidth="8" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      />
+      
+      {/* R Structure */}
+      <path 
+        d="M 60 30 V 70 M 60 30 H 72 C 82 30 82 50 72 50 H 60 M 70 50 L 82 70" 
+        stroke="url(#tealGradient)" 
+        strokeWidth="8" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
 import { 
   SiGo, 
   SiCplusplus, 
@@ -674,10 +722,10 @@ const Navigation = () => {
           {/* Logo/Name */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="text-xl font-bold hover:scale-105 transition-transform duration-300"
+            className="flex items-center justify-center hover:scale-110 transition-transform duration-300"
             style={{ color: isScrolled ? '#FFFFFF' : '#1F2933' }}
           >
-            HR
+            <HRLogo isScrolled={isScrolled} />
           </button>
 
           {/* Desktop Navigation */}
