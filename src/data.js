@@ -45,28 +45,34 @@ export const portfolioData = {
     },
   ],
 
-  skills: [
-    "Go (Golang)",
-    "Java",
-    "C++",
-    "Python",
-    "Flutter",
-    "Firebase",
-    "Android",
-    "ReactJs",
-    "Node.js",
-    "JavaScript",
-    "SQL",
-    "MySQL",
-    "PostgreSQL",
-    "Redis",
-    "Docker",
-    "Git & GitHub",
-    "REST APIs",
-    "Algorithms",
-    "Object-Oriented Programming",
-    "SDLC"
-  ],
+  skills: {
+    technical: [
+      { name: "Go (Golang)", icon: "SiGo" },
+      { name: "Java", icon: "FaJava" },
+      { name: "C++", icon: "SiCplusplus" },
+      { name: "Python", icon: "SiPython" },
+      { name: "JavaScript", icon: "SiJavascript" },
+      { name: "ReactJs", icon: "SiReact" },
+      { name: "Node.js", icon: "SiNodedotjs" },
+      { name: "Flutter", icon: "SiFlutter" },
+      { name: "Android", icon: "SiAndroid" },
+      { name: "SQL", icon: "FaDatabase" },
+    ],
+    tools: [
+      { name: "Firebase", icon: "SiFirebase" },
+      { name: "MySQL", icon: "SiMysql" },
+      { name: "PostgreSQL", icon: "SiPostgresql" },
+      { name: "Redis", icon: "SiRedis" },
+      { name: "Docker", icon: "SiDocker" },
+      { name: "Git & GitHub", icon: "SiGithub" },
+      { name: "REST APIs", icon: "FaPlug" },
+    ],
+    methodologies: [
+      { name: "Object-Oriented Programming", icon: "FaCode" },
+      { name: "SDLC", icon: "FaProjectDiagram" },
+      { name: "Algorithms", icon: "FaBrain" },
+    ]
+  },
 
   projects: [
     {

@@ -1,6 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from './data';
 import { Github, Linkedin, Mail, ExternalLink, Award, Trophy, Badge, FileText, Menu, X } from "lucide-react";
+import { 
+  SiGo, 
+  SiCplusplus, 
+  SiPython, 
+  SiJavascript, 
+  SiReact, 
+  SiNodedotjs, 
+  SiFlutter, 
+  SiAndroid, 
+  SiMysql,
+  SiPostgresql,
+  SiRedis,
+  SiDocker,
+  SiFirebase,
+  SiGithub
+} from "react-icons/si";
+import { 
+  FaCode, 
+  FaProjectDiagram, 
+  FaBrain,
+  FaDatabase,
+  FaJava,
+  FaPlug
+} from "react-icons/fa";
 
 
 
@@ -364,9 +388,34 @@ const CertCard = ({ cert, index }) => {
   );
 };
 
-const SkillBadge = ({ skill, index }) => {
+// Icon mapping for real technology icons
+const iconMap = {
+  SiGo,
+  FaJava,
+  SiCplusplus,
+  SiPython,
+  SiJavascript,
+  SiReact,
+  SiNodedotjs,
+  SiFlutter,
+  SiAndroid,
+  SiMysql,
+  SiPostgresql,
+  SiRedis,
+  SiDocker,
+  SiFirebase,
+  SiGithub,
+  FaPlug,
+  FaCode,
+  FaProjectDiagram,
+  FaBrain,
+  FaDatabase,
+};
+
+const SkillItem = ({ skill, index }) => {
   const skillRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const IconComponent = iconMap[skill.icon] || FaCode;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -390,27 +439,88 @@ const SkillBadge = ({ skill, index }) => {
   }, [index]);
 
   return (
-    <span 
+    <div
       ref={skillRef}
-      className={`px-4 py-2 border rounded-lg transition-all duration-300 cursor-default hover:scale-110 hover:shadow-sm ${
+      className={`group flex items-center gap-3 px-4 py-3 border rounded-xl transition-all duration-300 cursor-default hover:scale-105 hover:shadow-md ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
       style={{ 
-        color: '#1F2933',
         backgroundColor: '#FFFFFF',
-        borderColor: '#E5E7EB'
+        borderColor: 'rgba(0, 0, 0, 0.05)'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = '#0D9488';
-        e.currentTarget.style.color = '#0D9488';
+        e.currentTarget.style.transform = 'translateY(-2px)';
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = '#E5E7EB';
-        e.currentTarget.style.color = '#1F2933';
+        e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.05)';
+        e.currentTarget.style.transform = 'translateY(0)';
       }}
     >
-      {skill}
-    </span>
+      <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+        style={{ backgroundColor: 'rgba(13, 148, 136, 0.1)' }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(13, 148, 136, 0.2)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(13, 148, 136, 0.1)';
+        }}
+      >
+        <IconComponent size={20} style={{ color: '#0D9488' }} className="group-hover:scale-110 transition-transform duration-300" />
+      </div>
+      <span 
+        className="font-medium transition-colors duration-300"
+        style={{ color: '#1F2933' }}
+        onMouseEnter={(e) => e.currentTarget.style.color = '#0D9488'}
+        onMouseLeave={(e) => e.currentTarget.style.color = '#1F2933'}
+      >
+        {skill.name}
+      </span>
+    </div>
+  );
+};
+
+const SkillsCategory = ({ title, skills, index }) => {
+  const categoryRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), index * 200);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (categoryRef.current) {
+      observer.observe(categoryRef.current);
+    }
+
+    return () => {
+      if (categoryRef.current) {
+        observer.unobserve(categoryRef.current);
+      }
+    };
+  }, [index]);
+
+  return (
+    <div
+      ref={categoryRef}
+      className={`transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
+      <h3 className="text-xl font-bold mb-4" style={{ color: '#0D9488' }}>
+        {title}
+      </h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {skills.map((skill, idx) => (
+          <SkillItem key={idx} skill={skill} index={idx} />
+        ))}
+      </div>
+    </div>
   );
 };
 
@@ -800,11 +910,23 @@ export default function App() {
       </Section>
 
       {/* Skills Section */}
-      <Section id="skills" title="Technical Skills">
-        <div className="flex flex-wrap gap-3">
-          {skills.map((skill, index) => (
-            <SkillBadge key={index} skill={skill} index={index} />
-          ))}
+      <Section id="skills" title="Skills & Expertise">
+        <div className="space-y-12">
+          <SkillsCategory 
+            title="Technical Skills" 
+            skills={skills.technical} 
+            index={0}
+          />
+          <SkillsCategory 
+            title="Tools I Use" 
+            skills={skills.tools} 
+            index={1}
+          />
+          <SkillsCategory 
+            title="Core Concepts & Methodologies" 
+            skills={skills.methodologies} 
+            index={2}
+          />
         </div>
       </Section>
 
