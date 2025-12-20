@@ -708,21 +708,21 @@ const Navigation = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
+      isScrolled || mobileMenuOpen
         ? 'backdrop-blur-md border-b shadow-sm' 
         : 'bg-transparent'
     }`}
-    style={isScrolled ? { 
+    style={isScrolled || mobileMenuOpen ? { 
       backgroundColor: '#1F2933',
       borderColor: 'rgba(255, 255, 255, 0.1)'
     } : {}}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="max-w-7xl mx-auto px-6 py-4 relative">
         <div className="flex items-center justify-between">
           {/* Logo/Name */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center justify-center hover:scale-110 transition-transform duration-300"
+            className="flex items-center justify-center hover:scale-110 transition-transform duration-300 z-10 relative"
             style={{ color: isScrolled ? '#FFFFFF' : '#1F2933' }}
           >
             <HRLogo isScrolled={isScrolled} />
@@ -770,7 +770,7 @@ const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden transition-colors"
+            className="md:hidden transition-colors z-10 relative"
             style={{ color: isScrolled ? '#FFFFFF' : '#1F2933' }}
             onMouseEnter={(e) => e.currentTarget.style.color = '#0D9488'}
             onMouseLeave={(e) => {
@@ -780,10 +780,16 @@ const Navigation = () => {
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-2 border-t pt-4" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+      {/* Mobile Navigation - Outside inner container for proper positioning */}
+      {mobileMenuOpen && (
+        <div className="md:hidden pb-4 space-y-2 border-t pt-4 backdrop-blur-md shadow-lg" style={{ 
+          borderColor: 'rgba(255, 255, 255, 0.1)',
+          backgroundColor: '#1F2933',
+          zIndex: 1000
+        }}>
+          <div className="max-w-7xl mx-auto px-6">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -820,8 +826,8 @@ const Navigation = () => {
               <span>Download Resume</span>
             </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 };
@@ -850,7 +856,7 @@ export default function App() {
       <div className="relative z-10 min-h-screen">
       
       {/* Hero Section */}
-      <header className="min-h-[80vh] flex flex-col justify-center px-6 max-w-4xl mx-auto relative z-10">
+      <header className="min-h-[80vh] flex flex-col justify-center px-6 max-w-4xl mx-auto relative z-10 pt-24 md:pt-20">
         <div className="space-y-4 animate-fade-in">
           <p className="font-medium tracking-wide animate-slide-up" style={{ animationDelay: '0.1s', color: '#0D9488' }}>
             Hi, my name is
