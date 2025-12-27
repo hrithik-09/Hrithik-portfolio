@@ -697,13 +697,42 @@ const Navigation = () => {
     }
   };
 
-  const downloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/Hrithik_Ranjan_Main.pdf';
-    link.download = 'Hrithik_Ranjan_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const downloadResume = async () => {
+    try {
+      // Get the base URL from Vite config (handles GitHub Pages subdirectory)
+      const baseUrl = import.meta.env.BASE_URL;
+      const resumePath = `${baseUrl}Hrithik_Ranjan_Main.pdf`;
+      
+      // Try to fetch the file first to ensure it exists
+      const response = await fetch(resumePath);
+      if (!response.ok) {
+        throw new Error('Resume file not found');
+      }
+      
+      // Get the blob
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      
+      // Create a link element
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Hrithik_Ranjan_Resume.pdf';
+      
+      // Append to body, click, and remove
+      document.body.appendChild(link);
+      link.click();
+      
+      // Clean up
+      setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }, 100);
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      // Fallback: open in new tab (works better on mobile devices)
+      const baseUrl = import.meta.env.BASE_URL;
+      window.open(`${baseUrl}Hrithik_Ranjan_Main.pdf`, '_blank');
+    }
   };
 
   return (
