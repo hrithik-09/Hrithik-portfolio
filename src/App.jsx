@@ -320,7 +320,7 @@ const ProjectCard = ({ project, index, theme }) => {
 };
 
 // Projects Carousel Component
-const ProjectsCarousel = ({ projects, theme }) => {
+const ProjectsCarousel = ({ projects, theme, themeMode }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const carouselRef = useRef(null);
@@ -377,7 +377,7 @@ const ProjectsCarousel = ({ projects, theme }) => {
             onClick={prevProject}
             className="p-2 md:p-3 rounded-full shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg flex items-center justify-center"
             style={{ 
-              backgroundColor: theme === 'dark' ? theme.card : '#FFFFFF',
+              backgroundColor: themeMode === 'dark' ? theme.card : '#FFFFFF',
               color: theme?.primary || '#0D9488',
               border: `2px solid ${theme?.primary || '#0D9488'}`
             }}
@@ -386,7 +386,7 @@ const ProjectsCarousel = ({ projects, theme }) => {
               e.currentTarget.style.color = '#FFFFFF';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = theme === 'dark' ? theme.card : '#FFFFFF';
+              e.currentTarget.style.backgroundColor = themeMode === 'dark' ? theme.card : '#FFFFFF';
               e.currentTarget.style.color = theme?.primary || '#0D9488';
             }}
             aria-label="Previous project"
@@ -426,7 +426,7 @@ const ProjectsCarousel = ({ projects, theme }) => {
             onClick={nextProject}
             className="p-2 md:p-3 rounded-full shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg flex items-center justify-center"
             style={{ 
-              backgroundColor: theme === 'dark' ? theme.card : '#FFFFFF',
+              backgroundColor: themeMode === 'dark' ? theme.card : '#FFFFFF',
               color: theme?.primary || '#0D9488',
               border: `2px solid ${theme?.primary || '#0D9488'}`
             }}
@@ -435,7 +435,7 @@ const ProjectsCarousel = ({ projects, theme }) => {
               e.currentTarget.style.color = '#FFFFFF';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = theme === 'dark' ? theme.card : '#FFFFFF';
+              e.currentTarget.style.backgroundColor = themeMode === 'dark' ? theme.card : '#FFFFFF';
               e.currentTarget.style.color = theme?.primary || '#0D9488';
             }}
             aria-label="Next project"
@@ -1218,7 +1218,7 @@ export default function App() {
 
       {/* Projects Section */}
       <Section id="projects" title="Featured Projects" theme={themeColors}>
-        <ProjectsCarousel projects={projects} theme={themeColors} />
+        <ProjectsCarousel projects={projects} theme={themeColors} themeMode={theme} />
       </Section>
 
       {/* Awards & Achievements Section */}
@@ -1266,7 +1266,7 @@ export default function App() {
       }}>
         <p className="transition-colors duration-300" style={{ color: themeColors.textMuted }}>
           Designed by{' '}
-          <span className="transition-colors duration-300" style={{ color: themeColors.textPrimary }}>
+          <span className="transition-colors duration-300" style={{ color: theme === 'dark' ? themeColors.textPrimary : '#FFFFFF' }}>
             {personal.name}
           </span>
         </p>
