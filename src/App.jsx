@@ -1102,7 +1102,7 @@ export default function App() {
             </span>
             .
           </h2>
-          <p className="max-w-xl text-lg mt-6 leading-relaxed animate-slide-up transition-colors duration-300" style={{ animationDelay: '0.4s', color: themeColors.textMuted }}>
+          <p className="max-w-xl text-lg mt-6 leading-relaxed animate-slide-up transition-colors duration-300 text-justify" style={{ animationDelay: '0.4s', color: themeColors.textMuted }}>
             {personal.about}
           </p>
           
