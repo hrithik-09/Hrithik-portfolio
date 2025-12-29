@@ -87,8 +87,7 @@ export const portfolioData = {
         "Advanced filtering by genre, year, rating, and language",
         "Wishlist management and smart reminders with notifications",
         "Real-time sync across devices using Firebase Firestore",
-        "Google Sign-In authentication",
-        "Built with MVVM architecture and dark theme UI"
+        "Google Sign-In and MVVM architecture with dark theme UI"
       ],
       link: "https://github.com/hrithik-09/filmfolio",
     },
@@ -101,8 +100,7 @@ export const portfolioData = {
         "Real-time battery monitoring for earbuds and charging case",
         "Toggle switches for game mode, Dolby Atmos, and more",
         "Customizable tap, hold, and swipe gestures for playback and calls",
-        "Equalizer presets: Balanced, Pop, Rock, Jazz, Club, Custom",
-        "SDK-ready architecture for seamless integration (no SDK included)"
+        "Equalizer presets and SDK-ready architecture for integration"
       ],
       link: "https://github.com/hrithik-09/WaveSync",
     },
