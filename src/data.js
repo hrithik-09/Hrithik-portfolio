@@ -10,7 +10,7 @@ export const portfolioData = {
     linkedin: "https://linkedin.com/in/hrithik2209",
     phone: "+91-9102978168",
     about:
-      "Software Development Engineer with experience building and scaling backend services, integrating client applications, and shipping reliable features in production. Comfortable working across the stack using Go, Java, and modern web and mobile technologies.",
+      "Software Development Engineer with experience building and scaling backend services, integrating client applications, and shipping reliable features in production. Comfortable working across the stack using Node.js, Go, Java, C++ and modern web and mobile technologies.",
   },
 
   experience: [
