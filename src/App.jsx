@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from './data';
-import { Github, Linkedin, Mail, ExternalLink, Award, Trophy, Badge, FileText, Menu, X } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, Award, Trophy, Badge, FileText, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Artistic HR Logo Component - Elegant Interlocking Monogram
 const HRLogo = ({ className = "", size = 30 }) => {
@@ -63,7 +63,8 @@ import {
   SiRedis,
   SiDocker,
   SiFirebase,
-  SiGithub
+  SiGithub,
+  SiPostman
 } from "react-icons/si";
 import { 
   FaCode, 
@@ -71,7 +72,9 @@ import {
   FaBrain,
   FaDatabase,
   FaJava,
-  FaPlug
+  FaPlug,
+  FaTerminal,
+  FaSitemap
 } from "react-icons/fa";
 
 
@@ -218,9 +221,15 @@ const ProjectCard = ({ project, index }) => {
       <p className="text-sm mb-4 transition-colors duration-300" style={{ color: '#0D9488' }}>
         {project.subtitle}
       </p>
-      <p className="text-sm mb-6 h-20 overflow-hidden transition-colors duration-300" style={{ color: '#667085' }}>
-        {project.description}
-      </p>
+      <ul className="text-sm mb-6 leading-relaxed transition-colors duration-300 space-y-1.5 list-disc list-inside" style={{ color: '#667085' }}>
+        {Array.isArray(project.description) ? (
+          project.description.map((point, idx) => (
+            <li key={idx}>{point}</li>
+          ))
+        ) : (
+          <li>{project.description}</li>
+        )}
+      </ul>
       <div className="flex flex-wrap gap-2">
         {project.tags.map((tag, i) => (
           <span 
@@ -278,6 +287,140 @@ const ProjectCard = ({ project, index }) => {
       onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
     >
       {ProjectContent}
+    </div>
+  );
+};
+
+// Projects Carousel Component
+const ProjectsCarousel = ({ projects }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const carouselRef = useRef(null);
+
+  const nextProject = () => {
+    setCurrentIndex((prev) => (prev + 1) % projects.length);
+  };
+
+  const prevProject = () => {
+    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
+  const goToProject = (index) => {
+    setCurrentIndex(index);
+  };
+
+  // Auto-advance carousel (pauses on hover/interaction)
+  useEffect(() => {
+    if (isPaused || projects.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % projects.length);
+    }, 5000); // Change project every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [projects.length, isPaused]);
+
+  return (
+    <div 
+      className="relative"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Carousel Container */}
+      <div className="relative overflow-hidden rounded-xl py-4">
+        <div 
+          ref={carouselRef}
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {projects.map((project, index) => (
+            <div 
+              key={index} 
+              className="w-full flex-shrink-0 px-2"
+            >
+              <ProjectCard project={project} index={index} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Navigation Controls - Buttons and Dots */}
+      {projects.length > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-6">
+          {/* Previous Button */}
+          <button
+            onClick={prevProject}
+            className="p-2 md:p-3 rounded-full shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg flex items-center justify-center"
+            style={{ 
+              backgroundColor: '#FFFFFF',
+              color: '#0D9488',
+              border: '2px solid #0D9488'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#0D9488';
+              e.currentTarget.style.color = '#FFFFFF';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#FFFFFF';
+              e.currentTarget.style.color = '#0D9488';
+            }}
+            aria-label="Previous project"
+          >
+            <ChevronLeft size={20} className="md:w-6 md:h-6" />
+          </button>
+
+          {/* Dots Indicator */}
+          <div className="flex justify-center gap-2">
+            {projects.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToProject(index)}
+                className={`transition-all duration-300 rounded-full ${
+                  index === currentIndex ? 'w-8' : 'w-2'
+                } h-2`}
+                style={{
+                  backgroundColor: index === currentIndex ? '#0D9488' : '#E5E7EB'
+                }}
+                onMouseEnter={(e) => {
+                  if (index !== currentIndex) {
+                    e.currentTarget.style.backgroundColor = '#0D9488';
+                    e.currentTarget.style.opacity = '0.5';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (index !== currentIndex) {
+                    e.currentTarget.style.backgroundColor = '#E5E7EB';
+                    e.currentTarget.style.opacity = '1';
+                  }
+                }}
+                aria-label={`Go to project ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Next Button */}
+          <button
+            onClick={nextProject}
+            className="p-2 md:p-3 rounded-full shadow-md transition-all duration-300 hover:scale-110 hover:shadow-lg flex items-center justify-center"
+            style={{ 
+              backgroundColor: '#FFFFFF',
+              color: '#0D9488',
+              border: '2px solid #0D9488'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#0D9488';
+              e.currentTarget.style.color = '#FFFFFF';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#FFFFFF';
+              e.currentTarget.style.color = '#0D9488';
+            }}
+            aria-label="Next project"
+          >
+            <ChevronRight size={20} className="md:w-6 md:h-6" />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -453,11 +596,14 @@ const iconMap = {
   SiDocker,
   SiFirebase,
   SiGithub,
+  SiPostman,
   FaPlug,
   FaCode,
   FaProjectDiagram,
   FaBrain,
   FaDatabase,
+  FaTerminal,
+  FaSitemap,
 };
 
 const SkillItem = ({ skill, index }) => {
@@ -1015,11 +1161,7 @@ export default function App() {
 
       {/* Projects Section */}
       <Section id="projects" title="Featured Projects">
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
-          ))}
-        </div>
+        <ProjectsCarousel projects={projects} />
       </Section>
 
       {/* Awards & Achievements Section */}
@@ -1028,8 +1170,8 @@ export default function App() {
           <div className="space-y-6">
             {awards.map((award, index) => (
               <AwardCard key={index} award={award} index={index} />
-            ))}
-          </div>
+                ))}
+              </div>
         </Section>
       )}
 
@@ -1039,9 +1181,9 @@ export default function App() {
           <div className="space-y-4">
             {certifications.map((cert, index) => (
               <CertCard key={index} cert={cert} index={index} />
-            ))}
-          </div>
-        </Section>
+          ))}
+        </div>
+      </Section>
       )}
 
       {/* Education Timeline Section */}

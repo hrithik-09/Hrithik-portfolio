@@ -57,38 +57,66 @@ export const portfolioData = {
       { name: "Flutter", icon: "SiFlutter" },
       { name: "Android", icon: "SiAndroid" },
       { name: "SQL", icon: "FaDatabase" },
-    ],
-    tools: [
       { name: "Firebase", icon: "SiFirebase" },
       { name: "MySQL", icon: "SiMysql" },
       { name: "PostgreSQL", icon: "SiPostgresql" },
       { name: "Redis", icon: "SiRedis" },
+    ],
+    tools: [
       { name: "Docker", icon: "SiDocker" },
       { name: "Git & GitHub", icon: "SiGithub" },
-      { name: "REST APIs", icon: "FaPlug" },
+      { name: "Cursor", icon: "FaTerminal" },
+      { name: "Postman", icon: "SiPostman" },
     ],
     methodologies: [
       { name: "Object-Oriented Programming", icon: "FaCode" },
       { name: "SDLC", icon: "FaProjectDiagram" },
       { name: "Algorithms", icon: "FaBrain" },
+      { name: "System Design", icon: "FaSitemap" },
+      { name: "REST APIs", icon: "FaPlug" },
     ]
   },
 
   projects: [
     {
+      title: "FilmFolio",
+      subtitle: "Your Ultimate Movie Tracker",
+      tags: ["Android", "Java", "MVVM", "Retrofit", "Room DB", "Firebase", "XML"],
+      description: [
+        "Android movie tracker powered by TMDB API",
+        "Advanced filtering by genre, year, rating, and language",
+        "Wishlist management and smart reminders with notifications",
+        "Real-time sync across devices using Firebase Firestore",
+        "Google Sign-In authentication",
+        "Built with MVVM architecture and dark theme UI"
+      ],
+      link: "https://github.com/hrithik-09/filmfolio",
+    },
+    {
       title: "WaveSync",
       subtitle: "Hearables Management Android Application",
-      tags: ["Android", "Java", "Firebase", "XML"],
-      description:
-        "A TWS control application with 10+ features including device pairing, battery status monitoring, customizable equalizers, and noise control. Designed with an SDK-ready architecture to support seamless integration for full TWS functionality.",
+      tags: ["Android", "Java", "XML", "Android Studio"],
+      description: [
+        "TWS device management: scan, connect, and remove paired devices",
+        "Real-time battery monitoring for earbuds and charging case",
+        "Toggle switches for game mode, Dolby Atmos, and more",
+        "Customizable tap, hold, and swipe gestures for playback and calls",
+        "Equalizer presets: Balanced, Pop, Rock, Jazz, Club, Custom",
+        "SDK-ready architecture for seamless integration (no SDK included)"
+      ],
       link: "https://github.com/hrithik-09/WaveSync",
     },
     {
       title: "Rakshak",
       subtitle: "Medical Infrastructure Management Portal",
       tags: ["HTML", "CSS", "Bootstrap", "JavaScript", "SQL", "PHP"],
-      description:
-        "A platform built to bring the entire medical infrastructure of India under one roof. Enriched with 10+ features including expert advice, hospital information, appointments, and subscription plans. Enhanced UX with 4 dedicated views for patients, doctors, hospitals, and administrators.",
+      description: [
+        "Unified platform for India's medical infrastructure",
+        "10+ features: expert advice, hospital information, appointments",
+        "Subscription plans and payment integration",
+        "4 dedicated views: patients, doctors, hospitals, administrators",
+        "Enhanced UX with role-based access and interfaces"
+      ],
       link: "https://github.com/hrithik-09/Rakshak",
     },
   ],
