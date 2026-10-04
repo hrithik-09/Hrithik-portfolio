@@ -2,10 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
-    <link rel="alternate icon" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hrithik Ranjan - Portfolio</title>
+    <title>Hrithik Ranjan | Software Development Engineer</title>
+    <meta
+      name="description"
+      content="Hrithik Ranjan is a Software Development Engineer building scalable backend systems with Go, Node.js and PostgreSQL. Explore his experience, projects like InitiateAI, and skills."
+    />
+    <meta name="author" content="Hrithik Ranjan" />
+    <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://hrithik-09.github.io/Hrithik-portfolio/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hrithik-09.github.io/Hrithik-portfolio/" />
+    <meta property="og:title" content="Hrithik Ranjan | Software Development Engineer" />
+    <meta
+      property="og:description"
+      content="Backend-focused Software Development Engineer building production-grade systems with Go, Node.js and PostgreSQL."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Hrithik Ranjan | Software Development Engineer" />
+    <meta
+      name="twitter:description"
+      content="Backend-focused Software Development Engineer building production-grade systems with Go, Node.js and PostgreSQL."
+    />
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (dark) document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

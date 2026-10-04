@@ -1,0 +1,47 @@
+import {
+  SiGo,
+  SiCplusplus,
+  SiPython,
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiNodedotjs,
+  SiFlutter,
+  SiAndroid,
+  SiMysql,
+  SiPostgresql,
+  SiRedis,
+  SiDocker,
+  SiFirebase,
+  SiGithub,
+  SiPostman,
+} from 'react-icons/si';
+import { FaCode, FaProjectDiagram, FaBrain, FaDatabase, FaJava, FaPlug, FaSitemap } from 'react-icons/fa';
+
+export const iconMap = {
+  SiGo,
+  SiCplusplus,
+  SiPython,
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiNodedotjs,
+  SiFlutter,
+  SiAndroid,
+  SiMysql,
+  SiPostgresql,
+  SiRedis,
+  SiDocker,
+  SiFirebase,
+  SiGithub,
+  SiPostman,
+  FaCode,
+  FaProjectDiagram,
+  FaBrain,
+  FaDatabase,
+  FaJava,
+  FaPlug,
+  FaSitemap,
+};
+
+export const fallbackIcon = FaCode;

@@ -1,27 +1,30 @@
 // src/data.js
-import { Github, Linkedin, Mail, FileText } from "lucide-react";
 
 export const portfolioData = {
   personal: {
     name: "Hrithik Ranjan",
     role: "Software Development Engineer 1",
+    company: "LetsTransport",
     email: "ranjan.hrithikofficial@gmail.com",
     github: "https://github.com/hrithik-09",
     linkedin: "https://linkedin.com/in/hrithik2209",
-    phone: "+91-9102978168",
+    resume: `${import.meta.env.BASE_URL}Hrithik_Ranjan_Main.pdf`,
     about:
       "Software Development Engineer with experience building and scaling backend services, integrating client applications, and shipping reliable features in production. Comfortable working across the stack using Node.js, Go, Java, C++ and modern web and mobile technologies.",
+    focus: ["Backend", "Distributed Systems", "Real-time Systems"],
+    stack: ["Go", "Node.js", "PostgreSQL", "Redis"],
   },
-
   experience: [
     {
       company: "LetsTransport",
       role: "Software Development Engineer 1",
       duration: "07/2025 - Present",
       achievements: [
-        "Designed and scaled a horizontally distributed backend architecture, preventing Redis and database overloads while enabling seamless scale-out from single to multiple pods.",
-        "Built a real-time payment processing system replacing NEFT/RTGS workflows, achieving 98%+ transaction success rates and improved client experience.",
-        "Implemented dynamic configuration management for multi-region operations, contributing to 4x growth in platform scalability and operational throughput.",
+        "Built an end-to-end Insurance CRM, digitizing case management, financial workflows, approvals, and analytics.",
+        "Building the PTL (Part Truck Load) platform from scratch, implementing core modules for scalable transportation operations.",
+        "Engineered a multi-LSP (logistics service provider) broadcast model, reducing order-state anomalies by 99% through race-condition fixes.",
+        "Built a real-time Supplier Dashboard, reducing manual reporting effort by 70% and replacing Excel tracking.",
+        "Built a self-service SME payment portal, reducing payment turnaround time from days to minutes.",
       ],
     },
     {
@@ -45,75 +48,102 @@ export const portfolioData = {
     },
   ],
 
-  skills: {
-    technical: [
-      { name: "Go (Golang)", icon: "SiGo" },
-      { name: "Java", icon: "FaJava" },
-      { name: "C++", icon: "SiCplusplus" },
-      { name: "Python", icon: "SiPython" },
-      { name: "JavaScript", icon: "SiJavascript" },
-      { name: "ReactJs", icon: "SiReact" },
-      { name: "Node.js", icon: "SiNodedotjs" },
-      { name: "Flutter", icon: "SiFlutter" },
-      { name: "Android", icon: "SiAndroid" },
-      { name: "SQL", icon: "FaDatabase" },
-      { name: "Firebase", icon: "SiFirebase" },
-      { name: "MySQL", icon: "SiMysql" },
-      { name: "PostgreSQL", icon: "SiPostgresql" },
-      { name: "Redis", icon: "SiRedis" },
-    ],
-    tools: [
-      { name: "Docker", icon: "SiDocker" },
-      { name: "Git & GitHub", icon: "SiGithub" },
-      { name: "Cursor", icon: "FaTerminal" },
-      { name: "Postman", icon: "SiPostman" },
-    ],
-    methodologies: [
-      { name: "Object-Oriented Programming", icon: "FaCode" },
-      { name: "SDLC", icon: "FaProjectDiagram" },
-      { name: "Algorithms", icon: "FaBrain" },
-      { name: "System Design", icon: "FaSitemap" },
-      { name: "REST APIs", icon: "FaPlug" },
-    ]
-  },
+  skills: [
+    {
+      title: "Languages",
+      items: [
+        { name: "Go", icon: "SiGo" },
+        { name: "Java", icon: "FaJava" },
+        { name: "C++", icon: "SiCplusplus" },
+        { name: "Python", icon: "SiPython" },
+        { name: "JavaScript", icon: "SiJavascript" },
+        { name: "TypeScript", icon: "SiTypescript" },
+      ],
+    },
+    {
+      title: "Frameworks & Platforms",
+      items: [
+        { name: "Node.js", icon: "SiNodedotjs" },
+        { name: "React", icon: "SiReact" },
+        { name: "Android", icon: "SiAndroid" },
+        { name: "Flutter", icon: "SiFlutter" },
+        { name: "Firebase", icon: "SiFirebase" },
+      ],
+    },
+    {
+      title: "Databases",
+      items: [
+        { name: "PostgreSQL", icon: "SiPostgresql" },
+        { name: "MySQL", icon: "SiMysql" },
+        { name: "Redis", icon: "SiRedis" },
+        { name: "SQL", icon: "FaDatabase" },
+      ],
+    },
+    {
+      title: "Tools",
+      items: [
+        { name: "Docker", icon: "SiDocker" },
+        { name: "Git & GitHub", icon: "SiGithub" },
+        { name: "Postman", icon: "SiPostman" },
+      ],
+    },
+    {
+      title: "Core Concepts",
+      wide: true,
+      items: [
+        { name: "System Design", icon: "FaSitemap" },
+        { name: "Distributed Systems", icon: "FaProjectDiagram" },
+        { name: "REST APIs", icon: "FaPlug" },
+        { name: "Algorithms", icon: "FaBrain" },
+        { name: "Object-Oriented Programming", icon: "FaCode" },
+      ],
+    },
+  ],
 
   projects: [
     {
+      title: "InitiateAI",
+      subtitle: "AI Platform that Turns Business Problems into Initiation-Ready Projects",
+      featured: true,
+      pipeline: ["Interview", "Analysis", "Solutions", "Charter", "Execution Plan"],
+      tags: ["Go", "Gin", "React", "TypeScript", "PostgreSQL", "OpenAI"],
+      description: [
+        "Adaptive AI interview that keeps asking until discovery is evidence-ready, then produces analysis, solutions, a project charter and an execution plan",
+        "Pipeline of 6 specialised GPT-4o agents with 12 JSON-schema-validated outputs (fishbone diagram, root-cause summary, stakeholder analysis, timeline)",
+        "Go/Gin REST API with JWT auth, admin approval workflow, and plan-gated limits (Starter, Professional, Enterprise) stored in PostgreSQL",
+      ],
+      link: "https://initiateai.pages.dev",
+    },
+    {
       title: "FilmFolio",
       subtitle: "Your Ultimate Movie Tracker",
-      tags: ["Android", "Java", "MVVM", "Retrofit", "Room DB", "Firebase", "XML"],
+      tags: ["Android", "Java", "MVVM", "Retrofit", "Room DB", "Firebase"],
       description: [
-        "Android movie tracker powered by TMDB API",
-        "Advanced filtering by genre, year, rating, and language",
+        "Android movie tracker powered by the TMDB API with filtering by genre, year, rating and language",
         "Wishlist management and smart reminders with notifications",
-        "Real-time sync across devices using Firebase Firestore",
-        "Google Sign-In and MVVM architecture with dark theme UI"
+        "Real-time sync across devices using Firebase Firestore and Google Sign-In",
       ],
       link: "https://github.com/hrithik-09/filmfolio",
     },
     {
       title: "WaveSync",
       subtitle: "Hearables Management Android Application",
-      tags: ["Android", "Java", "XML", "Android Studio"],
+      tags: ["Android", "Java", "Bluetooth", "XML"],
       description: [
         "TWS device management: scan, connect, and remove paired devices",
         "Real-time battery monitoring for earbuds and charging case",
-        "Toggle switches for game mode, Dolby Atmos, and more",
-        "Customizable tap, hold, and swipe gestures for playback and calls",
-        "Equalizer presets and SDK-ready architecture for integration"
+        "Customisable gestures, equalizer presets and toggles for game mode and Dolby Atmos",
       ],
       link: "https://github.com/hrithik-09/WaveSync",
     },
     {
       title: "Rakshak",
       subtitle: "Medical Infrastructure Management Portal",
-      tags: ["HTML", "CSS", "Bootstrap", "JavaScript", "SQL", "PHP"],
+      tags: ["PHP", "SQL", "JavaScript", "Bootstrap"],
       description: [
-        "Unified platform for India's medical infrastructure",
-        "10+ features: expert advice, hospital information, appointments",
-        "Subscription plans and payment integration",
-        "4 dedicated views: patients, doctors, hospitals, administrators",
-        "Enhanced UX with role-based access and interfaces"
+        "Unified platform for India's medical infrastructure with 10+ features",
+        "Expert advice, hospital information, appointments and subscription payments",
+        "Role-based views for patients, doctors, hospitals and administrators",
       ],
       link: "https://github.com/hrithik-09/Rakshak",
     },
@@ -131,12 +161,6 @@ export const portfolioData = {
       degree: "Intermediate",
       year: "2018 - 2020",
       gpa: "Percentage: 92.2%",
-    },
-    {
-      institute: "St. Xavier's High School",
-      degree: "Matriculation",
-      year: "2018",
-      gpa: "Percentage: 96.8%",
     },
   ],
 

@@ -1,12 +1,83 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #FAFAF8;
+  --card: #FFFFFF;
+  --nav: rgba(250, 250, 248, 0.85);
+  --subtle: #F4F4F1;
+  --primary: #0D9488;
+  --primary-hover: #0F766E;
+  --text: #1F2933;
+  --muted: #667085;
+  --border: #E5E7EB;
+  --grid-dot: rgba(15, 23, 42, 0.12);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0F172A;
+  --card: #1E293B;
+  --nav: rgba(15, 23, 42, 0.85);
+  --subtle: #0F172A;
+  --primary: #14B8A6;
+  --primary-hover: #2DD4BF;
+  --text: #F1F5F9;
+  --muted: #94A3B8;
+  --border: #334155;
+  --grid-dot: rgba(148, 163, 184, 0.14);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-page: var(--bg);
+  --color-card: var(--card);
+  --color-nav: var(--nav);
+  --color-subtle: var(--subtle);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-fg: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, monospace;
+}
+
+@utility card {
+  @apply rounded-xl border border-border bg-card shadow-sm transition-all duration-300;
+}
+
+@utility card-hover {
+  @apply hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl hover:shadow-primary/10;
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 75%);
+}
+
+@utility chip {
+  @apply whitespace-nowrap rounded-full border border-border bg-subtle px-3 py-1 text-xs text-muted;
+}
+
+@utility tag {
+  @apply rounded border border-border bg-subtle px-2 py-1 font-mono text-xs text-muted;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
-/* Custom Animations */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -27,61 +98,6 @@ body {
   }
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0.3;
-  }
-  25% {
-    transform: translateY(-20px) translateX(10px);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translateY(-40px) translateX(-10px);
-    opacity: 0.7;
-  }
-  75% {
-    transform: translateY(-20px) translateX(5px);
-    opacity: 0.5;
-  }
-}
-
-@keyframes float-slow {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(30px, -30px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-}
-
-@keyframes gradient-mesh {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(20px, 20px) scale(1.05);
-  }
-  50% {
-    transform: translate(-20px, 20px) scale(0.95);
-  }
-  75% {
-    transform: translate(20px, -20px) scale(1.02);
-  }
-}
-
-@keyframes gradient {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
 .animate-fade-in {
   animation: fade-in 1s ease-out forwards;
 }
@@ -91,19 +107,16 @@ body {
   opacity: 0;
 }
 
-.animate-float {
-  animation: float linear infinite;
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient 3s ease infinite;
-}
-
-.animate-float-slow {
-  animation: float-slow ease-in-out infinite;
-}
-
-.animate-gradient-mesh {
-  animation: gradient-mesh 20s ease-in-out infinite;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
