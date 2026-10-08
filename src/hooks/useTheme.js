@@ -1,32 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
+// The initial theme is applied to <html> by the inline script in index.html before React loads.
 const STORAGE_KEY = 'theme';
 
-function getInitialTheme() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === 'light' || stored === 'dark') return stored;
-  } catch {
-    // localStorage can be unavailable (e.g. privacy mode)
-  }
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+function subscribe(callback) {
+  const observer = new MutationObserver(callback);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  return () => observer.disconnect();
+}
+
+function getSnapshot() {
+  return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+}
+
+function getServerSnapshot() {
+  return 'light';
 }
 
 export function useTheme() {
-  const [theme, setTheme] = useState(getInitialTheme);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.classList.toggle('dark', next === 'dark');
     try {
       localStorage.setItem(STORAGE_KEY, next);
     } catch {
       // Theme still switches for this visit
     }
-    setTheme(next);
   };
 
   return { theme, toggleTheme };

@@ -42,7 +42,7 @@ Edit `src/data.js`. Projects with `featured: true` are shown as the large card a
 npm install
 npm run dev       # start the dev server
 npm run lint      # run ESLint
-npm run build     # production build in dist/
+npm run build     # production build in dist/, with the page prerendered into index.html for SEO
 npm run preview   # preview the production build
 ```
 
