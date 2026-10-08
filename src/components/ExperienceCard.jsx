@@ -1,8 +1,8 @@
-import { Briefcase } from 'lucide-react';
+import { Briefcase, Trophy } from 'lucide-react';
 import Reveal from './Reveal';
 
 export default function ExperienceCard({ experience, index, isLast }) {
-  const { role, company, duration, achievements } = experience;
+  const { role, company, duration, award, achievements } = experience;
   const isCurrent = duration.includes('Present');
 
   return (
@@ -29,6 +29,15 @@ export default function ExperienceCard({ experience, index, isLast }) {
               )}
             </div>
             <p className="font-semibold text-primary">{company}</p>
+            {award && (
+              <a
+                href="#awards"
+                className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-700 transition-colors hover:bg-amber-500/20 dark:text-amber-300"
+              >
+                <Trophy size={13} aria-hidden="true" />
+                {award}
+              </a>
+            )}
           </div>
           <span className="chip font-mono">{duration}</span>
         </div>

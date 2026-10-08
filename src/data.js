@@ -19,6 +19,7 @@ export const portfolioData = {
       company: "LetsTransport",
       role: "Software Development Engineer 1",
       duration: "07/2025 - Present",
+      award: "Top Performer – Technology 2025–26",
       achievements: [
         "Built an end-to-end Insurance CRM, digitizing case management, financial workflows, approvals, and analytics.",
         "Building the PTL (Part Truck Load) platform from scratch, implementing core modules for scalable transportation operations.",
@@ -165,6 +166,23 @@ export const portfolioData = {
   ],
 
   awards: [
+    {
+      title: "Top Performer – Technology (2025–26)",
+      organization: "LetsTransport",
+      date: "08/2026",
+      description:
+        "Recognised as the top performer in Technology at LetsTransport for 2025–26, for outstanding performance, dedication, and contribution to the growth and success of the company.",
+      images: [
+        {
+          src: `${import.meta.env.BASE_URL}awards/top-performer-ceremony.jpg`,
+          alt: "Hrithik Ranjan receiving the Top Performer certificate and trophy at LetsTransport",
+        },
+        {
+          src: `${import.meta.env.BASE_URL}awards/top-performer-trophy.jpg`,
+          alt: "Top Performer – Technology 2025–2026 trophy and certificate of recognition from LetsTransport",
+        },
+      ],
+    },
     {
       title: "EXCALIBUR 23' Finalist",
       organization: "NIT Kurukshetra Techfest",
